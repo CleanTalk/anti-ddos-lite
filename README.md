@@ -8,5 +8,13 @@ Most of bots can't execute JavaScript code or can execute code partiraly. This a
 
 Just include the code as first line in index.php.
 ```php
+<?php
 require "anti-ddos-lite/anti-ddos-lite.php";
+
+//
+// index.php code bellow
+// ...
+//
+
+?>
 ```
