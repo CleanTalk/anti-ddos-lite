@@ -1,5 +1,5 @@
 # anti-ddos-lite
-A short PHP code to protect your site against DDoS attack.
+A small PHP app to protect your site against DDoS attack.
 
 ## Description
 Most of bots can't execute JavaScript code or can execute code partiraly. This app filters traffic from bots by using simple JavaScript code. So, bots will be denied to read original pages, they will be get only a single stop-page. As result DDoS attack will be reduced by elemenation of bots traffic that participating in the DDoS attack.
@@ -25,3 +25,5 @@ require "anti-ddos-lite/anti-ddos-lite.php";
 ```
 
 2. Generate new value for $secure_cookie_salt. 
+## Contacts
+Email: welcome@cleantalk.org
