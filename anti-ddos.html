@@ -20,12 +20,12 @@ function get_current_url() {
     <table class="main_t">
         <tr>
             <td class="info">
-				<h1>DDoS protection is activated for your IP <a href="/blacklists/%s" target="_new">%s</a></h1>
-				<p>Please click bellow to pass protection,</p>
-        		<a href=''><script>get_current_url();</script></a>
+                <h1>DDoS protection is activated for your IP <a href="/blacklists/%s" target="_new">%s</a></h1>
+                <p>Please click bellow to pass protection,</p>
+                <a href=''><script>get_current_url();</script></a>
 
 
-				<p>Or you will be automatically redirected to the requested page after %d seconds.</p>
+                <p>Or you will be automatically redirected to the requested page after %d seconds.</p>
                 <div id="js_info">
                     <p>To continue working with web-site, please make sure that you have enabled JavaScript.</p>
                 </div>
@@ -43,10 +43,10 @@ function get_current_url() {
     </table>
     <script type="text/javascript">
         document.getElementById('js_info').style.display = 'none';
-	    var date = new Date();
+        var date = new Date();
 
-	    days = '%s';
-	    date.setTime(date.getTime() + (days * 24*60*60*1000));
+        days = '%s';
+        date.setTime(date.getTime() + (days * 24*60*60*1000));
 
         document.cookie = '%s' + "=" + escape('%s') + "; expires = " + date.toGMTString() + "; path=/";
         setTimeout(function(){
