@@ -11,7 +11,7 @@ The real people will be see the stop-page only once, during first visit to the s
 
 ## How to use
 
-Just include the code as first line in index.php.
+1. Include the app as first line in index.php.
 ```php
 <?php
 require "anti-ddos-lite/anti-ddos-lite.php";
@@ -23,3 +23,5 @@ require "anti-ddos-lite/anti-ddos-lite.php";
 
 ?>
 ```
+
+2. Generate new value for $secure_cookie_salt. 
