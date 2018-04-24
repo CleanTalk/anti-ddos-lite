@@ -12,11 +12,11 @@
  */
 
 // Switch to control AntiDDoS state.
-$enable_protection = true;
+$anti_ddos_protection_enable = true;
 // Activate debug statements.
 $anti_ddos_debug = false;
 
-if ($enable_protection && isset($_SERVER['REMOTE_ADDR'])) {
+if ($anti_ddos_protection_enable && isset($_SERVER['REMOTE_ADDR'])) {
 
     // List of trusted Autonomous systems.
     $not_rated_as = '13238,15169,8075,10310,36647,13335,2635,32934,38365,55967,16509,2559,19500,47764,17012,1449,43247,32734,15768,33512,18730,30148';
