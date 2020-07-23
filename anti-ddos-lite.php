@@ -15,6 +15,17 @@
 $anti_ddos_protection_enable = true;
 // Activate debug statements.
 $anti_ddos_debug = false;
+// Test visitors against trusted UserAgent's list.
+$test_not_rated_ua = false;
+
+//
+// Fire DDoS protection by external signal.
+//
+// File must be placed in the site ROOT!
+$anti_ddos_protection_enable_ext_file = 'anti_ddos_protection_fire.dat';
+if ($anti_ddos_protection_enable === false && isset($anti_ddos_protection_enable_ext_file) && file_exists($anti_ddos_protection_enable_ext_file)) {
+    $anti_ddos_protection_enable = true;
+}
 
 if ($anti_ddos_protection_enable && isset($_SERVER['REMOTE_ADDR'])) {
 
@@ -68,6 +79,25 @@ if ($anti_ddos_protection_enable && isset($_SERVER['REMOTE_ADDR'])) {
             }
         }
     }
+		
+    //
+    // Skip trusted User-Agents. Regular expressions are allowed.
+    // Example: CleanTalk Uptime bot.+ 
+    //
+    if ($test_ip === true && $test_not_rated_ua === true) {
+        require "not_rated_ua.php"; 
+        if (isset($_SERVER['HTTP_USER_AGENT']) && count($not_rated_ua) > 0) {
+            foreach ($not_rated_ua as $ua) {
+                if (preg_match("/^$ua$/", $_SERVER['HTTP_USER_AGENT'])) {
+                    if ($anti_ddos_debug) {
+                        error_log(sprintf('Skip antiddos protection for %s, because it\'s trusted User-Agent %s.', $remote_ip, $ua));
+                    }
+                    $test_ip = false;
+                }
+            }
+        }
+    }
+
     $run_stop_action = $test_ip;
     if ($run_stop_action) {
         $html_file = file_get_contents(dirname(__FILE__) . '/anti-ddos.html');
@@ -93,5 +123,5 @@ if ($anti_ddos_protection_enable && isset($_SERVER['REMOTE_ADDR'])) {
         setcookie($secure_cookie_label, $secure_cookie_key, null, '/');
     }
 }
-?>
 
+?>
