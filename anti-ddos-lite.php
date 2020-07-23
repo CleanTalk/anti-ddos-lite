@@ -12,7 +12,7 @@
  */
 
 // Switch to control AntiDDoS state.
-$anti_ddos_protection_enable = false;
+$anti_ddos_protection_enable = true;
 // Activate debug statements.
 $anti_ddos_debug = false;
 // Test visitors against trusted UserAgent's list.
@@ -23,7 +23,6 @@ $test_not_rated_ua = false;
 //
 // File must be placed in the site ROOT!
 $anti_ddos_protection_enable_ext_file = 'anti_ddos_protection_fire.dat';
-
 if ($anti_ddos_protection_enable === false && isset($anti_ddos_protection_enable_ext_file) && file_exists($anti_ddos_protection_enable_ext_file)) {
     $anti_ddos_protection_enable = true;
 }
