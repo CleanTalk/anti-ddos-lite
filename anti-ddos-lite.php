@@ -123,3 +123,5 @@ if ($anti_ddos_protection_enable && isset($_SERVER['REMOTE_ADDR'])) {
         setcookie($secure_cookie_label, $secure_cookie_key, null, '/');
     }
 }
+
+?>
