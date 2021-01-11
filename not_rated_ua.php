@@ -1,9 +1,6 @@
 <?php
 
 $not_rated_ua = array(
-    'CleanTalk Uptime bot.+'
-);
-$not_rated_ua = array(
         'CleanTalk Uptime bot.+',
         'Googlebot', 
         'Bingbot',
