@@ -101,6 +101,7 @@ if ($anti_ddos_protection_enable && isset($_SERVER['REMOTE_ADDR'])) {
     $run_stop_action = $test_ip;
     if ($run_stop_action) {
         $html_file = file_get_contents(dirname(__FILE__) . '/anti-ddos.html');
+        http_response_code(403);
         echo sprintf($html_file, 
             $remote_ip,
             $remote_ip,
