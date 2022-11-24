@@ -7,7 +7,7 @@
  * @package Cleantalk
  * @author Cleantalk team (welcome@cleantalk.org)
  * @copyright (C) CleanTalk team (https://cleantalk.org)
- * @license GNU/GPL: http://www.gnu.org/copyleft/gpl.html
+ * @license MIT License 2022
  *
  */
 
