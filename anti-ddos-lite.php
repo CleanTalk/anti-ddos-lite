@@ -13,6 +13,10 @@
 
 require 'src/anti-ddos-lib.php';
 
+if (!checkRequirements()) {
+    return;
+}
+
 if (!isset($_SERVER['REMOTE_ADDR'])) {
     return;
 }

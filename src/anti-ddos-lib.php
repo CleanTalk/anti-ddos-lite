@@ -139,3 +139,12 @@ function antiDdosShowDdosScreenAndRedirect($data)
 
     exit; 
 }
+
+function checkRequirements()
+{
+    if( version_compare( phpversion(), '5.6', '<' ) ) {
+        return false;
+    }
+
+    return true;
+}
