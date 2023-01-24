@@ -1,6 +1,6 @@
 # Anti-DDoS-Lite (Anti-Crawler app)
 
-[![Build Status](https://travis-ci.org/CleanTalk/anti-ddos-lite.svg?branch=master)](https://travis-ci.org/CleanTalk/anti-ddos-lite)
+[![Build Status](https://travis-ci.com/CleanTalk/anti-ddos-lite.svg?branch=master)](https://travis-ci.org/CleanTalk/anti-ddos-lite)
 
 A small PHP app to protect your site against DDoS attack or crawling web site by bots.
 
