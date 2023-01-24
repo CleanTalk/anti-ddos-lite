@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset name="CleanTalk's Anti-DDOS lite code sniffer">
+	<description>Sniff code to check different PHP compatibility</description>
+
+	<!-- What to scan -->
+	<file>../</file>
+	<exclude-pattern>/vendor/</exclude-pattern>
+	<exclude-pattern>/node_modules/</exclude-pattern>
+
+	<!-- How to scan -->
+	<!-- Usage instructions: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Usage -->
+	<!-- Annotated ruleset: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml -->
+	<arg value="sp"/> <!-- Show sniff and progress -->
+	<arg name="basepath" value="./"/><!-- Strip the file paths down to the relevant bit -->
+	<!-- Exclude test directories -->
+	<exclude-pattern>tests/*</exclude-pattern>
+	<exclude-pattern>vendor/*</exclude-pattern>
+	<arg name="colors"/>
+	<arg name="extensions" value="php"/>
+	<arg name="exclude" value="PSR12.ControlStructures.ControlStructureSpacing"/>
+	<arg value="n"/>
+
+	<!-- Rules: Check PHP version compatibility -->
+	<!-- https://github.com/PHPCompatibility/PHPCompatibility#sniffing-your-code-for-compatibility-with-specific-php-versions -->
+	<config name="testVersion" value="5.6-"/>
+
+	<rule ref="PHPCompatibility"/>
+	<rule ref="PSR12"/>
+</ruleset>

@@ -1,0 +1,36 @@
+dist: trusty
+
+os: linux
+
+language: php
+
+notifications:
+  email:
+    recipients:
+      - plugins@cleantalk.org
+    on_failure: always
+    on_success: never
+
+branches:
+  only:
+    - master
+    - dev
+
+jobs:
+  include:
+    - env: TRAVISCI=phpcs
+
+
+before_script:
+  - |
+    if [[ "$TRAVISCI" == "phpcs" ]] ; then
+      composer require squizlabs/php_codesniffer
+      composer require phpcompatibility/php-compatibility
+      vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility
+    fi
+
+script:
+  - |
+    if [[ "$TRAVISCI" == "phpcs" ]] ; then
+      vendor/bin/phpcs --standard=tests/.phpcs.xml
+    fi

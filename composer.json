@@ -1,0 +1,12 @@
+{
+    "require": {
+        "squizlabs/php_codesniffer": "3.*",
+        "phpcompatibility/php-compatibility": "^9.3"
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility",
+            "vendor/bin/phpcs --standard=tests/.phpcs.xml"
+        ]
+    }
+}
