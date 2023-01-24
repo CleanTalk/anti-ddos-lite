@@ -1,12 +1,26 @@
 {
-    "require": {
-        "squizlabs/php_codesniffer": "3.*",
-        "phpcompatibility/php-compatibility": "^9.3"
-    },
-    "scripts": {
-        "test": [
-            "vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility",
-            "vendor/bin/phpcs --standard=tests/.phpcs.xml"
-        ]
+  "name": "cleantalk/anti-ddos-lite",
+  "description": "A small PHP app to protect your site against DDoS attack or crawling web site by bots.",
+  "authors": [
+    {
+      "name": "CleanTalk Team",
+      "email": "support@cleantalk.org"
     }
+  ],
+  "license": "GPL-3.0-or-later",
+  "autoload": {
+    "psr-4": {
+      "Cleantalk\\CleantalkAntiDdosLite\\": "/"
+    }
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "3.*",
+    "phpcompatibility/php-compatibility": "^9.3"
+  },
+  "scripts": {
+    "test": [
+      "vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility",
+      "vendor/bin/phpcs --standard=tests/.phpcs.xml"
+    ]
+  }
 }
