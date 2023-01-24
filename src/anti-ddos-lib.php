@@ -14,7 +14,7 @@
 function antiDdosProtectionMain($data)
 {
     $data['secure_key'] = md5($data['remote_ip'] . ':' . $data['anti_ddos_salt']);
-    
+
     if (antiDdosSkipUserReentry($data)
         || antiDdosSkipVisitorsFromTrustedAs($data)
         || antiDdosSkipVisitorsFromTrustedUa($data)
@@ -32,7 +32,7 @@ function antiDdosProtectionMain($data)
  * -----------------------------------------------------------------------
  * | File anti_ddos_protection_fire.dat must be placed in the site ROOT! |
  * -----------------------------------------------------------------------
- * 
+ *
  * @return bool
  */
 function antiDdosCheckDatFileExist()
@@ -111,7 +111,7 @@ function antiDdosSkipVisitorsFromTrustedUa($data)
  * -----------------------------------------------------------------------
  * | File anti_ddos_protection_fire.dat must be placed in the site ROOT! |
  * -----------------------------------------------------------------------
- * 
+ *
  * @return void
  */
 function antiDdosShowDdosScreenAndRedirect($data)
@@ -120,7 +120,8 @@ function antiDdosShowDdosScreenAndRedirect($data)
 
     http_response_code(403);
 
-    echo sprintf($html_file, 
+    echo sprintf(
+        $html_file,
         $data['remote_ip'],
         $data['remote_ip'],
         $data['redirect_delay'],
@@ -131,18 +132,21 @@ function antiDdosShowDdosScreenAndRedirect($data)
     );
 
     if ($data['anti_ddos_debug']) {
-        error_log(sprintf('Blacklisted IP, drop connection %s to %s.', 
-            $data['remote_ip'],
-            $_SERVER['REQUEST_URI']
-        ));
+        error_log(
+            sprintf(
+                'Blacklisted IP, drop connection %s to %s.',
+                $data['remote_ip'],
+                $_SERVER['REQUEST_URI']
+            )
+        );
     }
 
-    exit; 
+    exit;
 }
 
 function checkRequirements()
 {
-    if( version_compare( phpversion(), '5.6', '<' ) ) {
+    if (version_compare(phpversion(), '5.6', '<')) {
         return false;
     }
 

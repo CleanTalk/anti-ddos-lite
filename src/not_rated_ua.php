@@ -2,7 +2,7 @@
 
 $notRatedUa = array(
     'CleanTalk Uptime bot.+',
-    'Googlebot', 
+    'Googlebot',
     'Bingbot',
     'Baiduspider',
     'YandexBot',
