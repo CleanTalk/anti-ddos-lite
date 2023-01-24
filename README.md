@@ -13,9 +13,12 @@ In the same time, legitimate/real visitors get original page after short delay b
 
 ## How to use
 
-1. Include the app as first line in index.php.
+1. Include the app as first line in index.php by various way:
+
+**A** Download, unzip and include the app:
 ```php
 <?php
+// This file have to be very first included
 require "anti-ddos-lite/anti-ddos-lite.php";
 
 //
@@ -24,6 +27,17 @@ require "anti-ddos-lite/anti-ddos-lite.php";
 //
 
 ?>
+```
+
+**B** Or install the app by composer package:
+
+```
+composer require cleantalk/anti-ddos-lite
+```
+```php
+<?php
+// Init the app before your web app's main logic
+\Cleantalk\CleantalkAntiDdosLite\CleantalkAntiDdosLite::init();
 ```
 
 2. Generate new value for $secure_cookie_salt. 
