@@ -33,7 +33,7 @@ $data = [
     // Secret key salt to avoid copy/past of the Cookie between visitors.
     // ATTENTION!!!
     // YOU MUST GENERATE NEW $anti_ddos_salt BEFORE USE IT ON YOUR OWN SITE.
-    // ATTENTION!!! 
+    // ATTENTION!!!
     'anti_ddos_salt' => '4xU9mn2X7iPZpeW2'
 ];
 
