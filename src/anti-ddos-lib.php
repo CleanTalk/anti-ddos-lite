@@ -22,7 +22,7 @@ function antiDdosProtectionMain($data)
         return;
     }
 
-    setcookie($data['secure_label'], $data['secure_key'], null, '/');
+    setcookie($data['secure_label'], $data['secure_key'], 0, '/');
 
     antiDdosShowDdosScreenAndRedirect($data);
 }
