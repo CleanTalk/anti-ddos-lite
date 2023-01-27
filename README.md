@@ -1,4 +1,4 @@
-# Anti-DDoS-Lite
+# DDoS-Protection-Lite
 
 [![Build Status](https://travis-ci.com/CleanTalk/anti-ddos-lite.svg?branch=master)](https://travis-ci.org/CleanTalk/anti-ddos-lite)
 
