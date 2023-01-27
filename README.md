@@ -11,7 +11,7 @@ Most of bots can't execute JavaScript code or can execute code partially. This a
 
 In the same time, legitimate/real visitors get the original page after a short delay because the browser of legitimate/real visitors executes JavaScript code. The legitimate/real visitors see the stop-page only once, during first visit to the site.
 
-<img src="images/stop-page.png" >
+<img src="images/stop-page1.png" >
 
 ## How to use
 
