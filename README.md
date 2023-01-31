@@ -42,7 +42,7 @@ composer require cleantalk/anti-ddos-lite
 \Cleantalk\CleantalkAntiDdosLite\CleantalkAntiDdosLite::init();
 ```
 
-2. Generate new value for $secure_cookie_salt. 
+2. Generate new value for anti_ddos_salt. 
 
 ## Skip protection for visitors from trusted networks, Autonomous systesm (AS)
 Setup [GeoIP](https://www.php.net/manual/en/book.geoip.php) and list excluded Autonomous systems in the $not_rated_as.
