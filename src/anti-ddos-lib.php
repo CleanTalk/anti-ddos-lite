@@ -187,15 +187,15 @@ function antiDdosShowDdosScreenAndRedirect($data)
 
     http_response_code(403);
 
-    $code = str_replace('{VISITOR_IP}',$data['remote_ip'],$html_file);
-    $code = str_replace('{REDIRECT_DELAY}',$data['redirect_delay'] * 1000,$code);
-    $code = str_replace('{DAYS}',$data['secure_cookie_days'],$code);
-    $code = str_replace('{SECURE_LABEL}',$data['secure_label'],$code);
-    $code = str_replace('{SECURE_KEY}',$data['secure_key'],$code);
+    $code = str_replace('{VISITOR_IP}', $data['remote_ip'], $html_file);
+    $code = str_replace('{REDIRECT_DELAY}', $data['redirect_delay'] * 1000, $code);
+    $code = str_replace('{DAYS}', $data['secure_cookie_days'], $code);
+    $code = str_replace('{SECURE_LABEL}', $data['secure_label'], $code);
+    $code = str_replace('{SECURE_KEY}', $data['secure_key'], $code);
 
     echo ($code);
 
-    if ($data['anti_ddos_debug']) {
+    if ( $data['anti_ddos_debug'] ) {
         error_log(
             sprintf(
                 'Blacklisted IP, drop connection %s to %s.',
