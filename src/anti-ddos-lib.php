@@ -13,14 +13,25 @@
 
 function antiDdosProtectionMain($data)
 {
-    $data['secure_key'] = md5($data['remote_ip'] . ':' . $data['anti_ddos_salt']);
-
-    if (antiDdosSkipUserReentry($data)
-        || antiDdosSkipVisitorsFromTrustedAs($data)
-        || antiDdosSkipVisitorsFromTrustedUa($data)
+    if ( (antiDdosSkipUserReentry($data)
+            || antiDdosSkipVisitorsFromTrustedAs($data)
+            || antiDdosSkipVisitorsFromTrustedUa($data))
+        //headless check
+        && checkHeadless($data)
     ) {
+        $data['secure_key'] = md5($data['remote_ip'] . ':' . $data['anti_ddos_salt']);
+        //set security cookies
         antiDdosProtectionSetCookie($data['secure_label'], $data['secure_key']);
         return;
+    }
+    //show debug about headless for blocked visitors
+    if ( !empty($data['anti_ddos_debug']) && antiDdosSkipUserReentry($data) && !checkHeadless($data) ) {
+        error_log(
+            sprintf(
+                'Visitor has headless mode: %s.',
+                $data['remote_ip']
+            )
+        );
     }
 
     antiDdosShowDdosScreenAndRedirect($data);
@@ -204,4 +215,17 @@ function checkRequirements()
     }
 
     return true;
+}
+
+function checkHeadless($data)
+{
+    if ( empty($data['test_headless']) ) {
+        return true;
+    }
+
+    if ( isset($_COOKIE['ct_headless']) && $_COOKIE['ct_headless'] == 'false' ) {
+        return true;
+    }
+
+    return false;
 }

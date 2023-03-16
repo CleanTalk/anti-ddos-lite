@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="cache-control" content="no-cache">
@@ -53,7 +53,7 @@ function get_current_url() {
             for (i = 0; i < rfeozbj.length; i++) {
                 jasdh = jasdh + (rfeozbj[i]);
             }
-            document.getElementsByClassName("main_t")[0].innerHTML = document.getElementsByClassName("main_t")[0].innerHTML + "<div style=\"text-align: center;\">" + jasdh + "</div>"
+            document.getElementsByClassName("main_t")[0].innerHTML = document.getElementsByClassName("main_t")[0].innerHTML + "<div style=\"text-align: center;\">" + jasdh + "</div>";
         </script>
         <noscript>Please enable Javascript to see the requested page.</noscript>
             </td>
@@ -68,6 +68,7 @@ function get_current_url() {
 
         const ctSecure = location.protocol === "https:" ? "; secure" : "";
         document.cookie = "{SECURE_LABEL}" + "=" + escape("{SECURE_KEY}") + "; expires = " + date.toGMTString() + "; path=/; samesite=lax" + ctSecure;
+        document.cookie = 'ct_headless' + "=" + encodeURIComponent(navigator.webdriver) + "; " + 0 + "path=/; samesite=lax";
 
         setTimeout(function(){
            window.location.reload(1);
