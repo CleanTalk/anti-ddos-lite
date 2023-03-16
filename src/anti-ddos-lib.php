@@ -19,10 +19,9 @@ function antiDdosProtectionMain($data)
         || antiDdosSkipVisitorsFromTrustedAs($data)
         || antiDdosSkipVisitorsFromTrustedUa($data)
     ) {
+        antiDdosProtectionSetCookie($data['secure_label'], $data['secure_key']);
         return;
     }
-
-    antiDdosProtectionSetCookie($data['secure_label'], $data['secure_key']);
 
     antiDdosShowDdosScreenAndRedirect($data);
 }
