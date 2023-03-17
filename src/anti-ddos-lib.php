@@ -19,7 +19,6 @@ function antiDdosProtectionMain($data)
         //headless check
         && checkHeadless($data)
     ) {
-        $data['secure_key'] = md5($data['remote_ip'] . ':' . $data['anti_ddos_salt']);
         //set security cookies
         antiDdosProtectionSetCookie($data['secure_label'], $data['secure_key']);
         return;
@@ -68,7 +67,12 @@ function antiDdosProtectionSetCookie(
         return;
     }
 
-    $secure = ! is_null($secure) ? $secure : ! in_array($_SERVER['HTTPS'], ['off', '']) || $_SERVER['SERVER_PORT'] == 443;
+    $server_https_flag = isset($_SERVER['HTTPS']) ?: '';
+    $server_port = isset($_SERVER['SERVER_PORT']) ?: '';
+
+    $secure = ! is_null($secure)
+        ? $secure
+        : ! in_array($server_https_flag, ['off', '']) || $server_port == 443;
 
     // For PHP 7.3+ and above
     if ( version_compare(phpversion(), '7.3.0', '>=') ) {
