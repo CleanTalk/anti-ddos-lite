@@ -13,6 +13,7 @@
 
 function antiDdosProtectionMain($data)
 {
+    $data['secure_key'] = md5($data['remote_ip'] . ':' . $data['anti_ddos_salt']);
     if ( (antiDdosSkipUserReentry($data)
             || antiDdosSkipVisitorsFromTrustedAs($data)
             || antiDdosSkipVisitorsFromTrustedUa($data))
