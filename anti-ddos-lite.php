@@ -3,7 +3,7 @@
 /**
  * Cleantalk base class
  *
- * @version 1.0
+ * @version 2.0.1
  * @package Cleantalk
  * @author Cleantalk team (welcome@cleantalk.org)
  * @copyright (C) CleanTalk team (https://cleantalk.org)
@@ -29,6 +29,7 @@ $data = [
     'redirect_delay' => 3,                 // Delay in seconds before redirection to original URL.
     'remote_ip' => $_SERVER['REMOTE_ADDR'],
     'secure_label' => 'ct_anti_ddos_key',
+    'test_headless' => true,               //block visitors with headless mode (such a selenium)
 
     // Secret key salt to avoid copy/past of the Cookie between visitors.
     // ATTENTION!!!

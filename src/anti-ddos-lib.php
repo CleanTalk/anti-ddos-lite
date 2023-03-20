@@ -14,15 +14,25 @@
 function antiDdosProtectionMain($data)
 {
     $data['secure_key'] = md5($data['remote_ip'] . ':' . $data['anti_ddos_salt']);
-
-    if (antiDdosSkipUserReentry($data)
-        || antiDdosSkipVisitorsFromTrustedAs($data)
-        || antiDdosSkipVisitorsFromTrustedUa($data)
+    if ( (antiDdosSkipUserReentry($data)
+            || antiDdosSkipVisitorsFromTrustedAs($data)
+            || antiDdosSkipVisitorsFromTrustedUa($data))
+        //headless check
+        && checkHeadless($data)
     ) {
+        //set security cookies
+        antiDdosProtectionSetCookie($data['secure_label'], $data['secure_key']);
         return;
     }
-
-    antiDdosProtectionSetCookie($data['secure_label'], $data['secure_key']);
+    //show debug about headless for blocked visitors
+    if ( !empty($data['anti_ddos_debug']) && antiDdosSkipUserReentry($data) && !checkHeadless($data) ) {
+        error_log(
+            sprintf(
+                'Visitor has headless mode: %s.',
+                $data['remote_ip']
+            )
+        );
+    }
 
     antiDdosShowDdosScreenAndRedirect($data);
 }
@@ -58,7 +68,12 @@ function antiDdosProtectionSetCookie(
         return;
     }
 
-    $secure = ! is_null($secure) ? $secure : ! in_array($_SERVER['HTTPS'], ['off', '']) || $_SERVER['SERVER_PORT'] == 443;
+    $server_https_flag = isset($_SERVER['HTTPS']) ?: '';
+    $server_port = isset($_SERVER['SERVER_PORT']) ?: '';
+
+    $secure = ! is_null($secure)
+        ? $secure
+        : ! in_array($server_https_flag, ['off', '']) || $server_port == 443;
 
     // For PHP 7.3+ and above
     if ( version_compare(phpversion(), '7.3.0', '>=') ) {
@@ -148,13 +163,13 @@ function antiDdosSkipVisitorsFromTrustedUa($data)
     }
 
     require "not_rated_ua.php";
+    global $notRatedUa;
     if (count($notRatedUa) > 0) {
         foreach ($notRatedUa as $ua) {
             if (preg_match("/^$ua$/", $_SERVER['HTTP_USER_AGENT'])) {
-                if ($anti_ddos_debug) {
-                    error_log(sprintf('Skip antiddos protection for %s, because it\'s trusted User-Agent %s.', $remote_ip, $ua));
+                if ($data['anti_ddos_debug']) {
+                    error_log(sprintf('Skip antiddos protection for %s, because it\'s trusted User-Agent %s.', $data['remote_ip'], $ua));
                 }
-
                 return true;
             }
         }
@@ -177,18 +192,15 @@ function antiDdosShowDdosScreenAndRedirect($data)
 
     http_response_code(403);
 
-    echo sprintf(
-        $html_file,
-        $data['remote_ip'],
-        $data['remote_ip'],
-        $data['redirect_delay'],
-        $data['secure_cookie_days'],
-        $data['secure_label'],
-        $data['secure_key'],
-        $data['redirect_delay'] * 1000
-    );
+    $code = str_replace('{VISITOR_IP}', $data['remote_ip'], $html_file);
+    $code = str_replace('{REDIRECT_DELAY}', $data['redirect_delay'], $code);
+    $code = str_replace('{DAYS}', $data['secure_cookie_days'], $code);
+    $code = str_replace('{SECURE_LABEL}', $data['secure_label'], $code);
+    $code = str_replace('{SECURE_KEY}', $data['secure_key'], $code);
 
-    if ($data['anti_ddos_debug']) {
+    echo ($code);
+
+    if ( $data['anti_ddos_debug'] ) {
         error_log(
             sprintf(
                 'Blacklisted IP, drop connection %s to %s.',
@@ -208,4 +220,23 @@ function checkRequirements()
     }
 
     return true;
+}
+
+function checkHeadless($data)
+{
+    if ( empty($data['test_headless']) ) {
+        return true;
+    }
+
+
+    if ( isset($_COOKIE['ct_headless']) ) {
+        $headless = explode(':', base64_decode($_COOKIE['ct_headless']));
+        if ( isset($headless[0], $headless[1])
+            && $headless[0] === $data['secure_key']
+            && $headless[1] === 'false' ) {
+            return true;
+        }
+    }
+
+    return false;
 }

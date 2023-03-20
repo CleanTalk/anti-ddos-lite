@@ -1,5 +1,6 @@
 <?php
 
+global $notRatedUa;
 $notRatedUa = array(
     'CleanTalk Uptime bot.+',
     'Googlebot',
