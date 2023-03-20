@@ -69,7 +69,7 @@ function get_current_url() {
 
         const ctSecure = location.protocol === "https:" ? "; secure" : "";
         document.cookie = "{SECURE_LABEL}" + "=" + escape("{SECURE_KEY}") + "; expires = " + date.toGMTString() + "; path=/; samesite=lax" + ctSecure;
-        document.cookie = 'ct_headless' + "=" + encodeURIComponent(navigator.webdriver) + "; " + 0 + "path=/; samesite=lax";
+        document.cookie = 'ct_headless' + "=" + encodeURIComponent(btoa('{SECURE_KEY}' +':'+ navigator.webdriver)) + "; " + 0 + "path=/; samesite=lax";
 
         setTimeout(function(){
            window.location.reload(1);

@@ -228,8 +228,14 @@ function checkHeadless($data)
         return true;
     }
 
-    if ( isset($_COOKIE['ct_headless']) && $_COOKIE['ct_headless'] == 'false' ) {
-        return true;
+
+    if ( isset($_COOKIE['ct_headless']) ) {
+        $headless = explode(':', base64_decode($_COOKIE['ct_headless']));
+        if ( isset($headless[0], $headless[1])
+            && $headless[0] === $data['secure_key']
+            && $headless[1] === 'false' ) {
+            return true;
+        }
     }
 
     return false;
