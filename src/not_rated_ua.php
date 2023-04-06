@@ -8,6 +8,7 @@ $notRatedUa = array(
     'Baiduspider',
     'YandexBot',
     'facebot',
-    'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
-    'ia_archiver'
+    'facebookexternalhit\/1\.1 \(\+http:\/\/www\.facebook\.com\/externalhit_uatext\.php\)',
+    'ia_archiver',
+    'UptimeRobot'
 );

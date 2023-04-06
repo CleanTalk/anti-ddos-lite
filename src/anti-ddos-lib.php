@@ -14,11 +14,9 @@
 function antiDdosProtectionMain($data)
 {
     $data['secure_key'] = md5($data['remote_ip'] . ':' . $data['anti_ddos_salt']);
-    if ( (antiDdosSkipUserReentry($data)
+    if ( (antiDdosSkipUserReentry($data) && checkHeadless($data))
             || antiDdosSkipVisitorsFromTrustedAs($data)
-            || antiDdosSkipVisitorsFromTrustedUa($data))
-        //headless check
-        && checkHeadless($data)
+            || antiDdosSkipVisitorsFromTrustedUa($data)
     ) {
         //set security cookies
         antiDdosProtectionSetCookie($data['secure_label'], $data['secure_key']);
@@ -68,12 +66,12 @@ function antiDdosProtectionSetCookie(
         return;
     }
 
-    $server_https_flag = isset($_SERVER['HTTPS']) ?: '';
-    $server_port = isset($_SERVER['SERVER_PORT']) ?: '';
+    $server_https_flag = isset($_SERVER['HTTPS']) ? $_SERVER['HTTPS'] : '';
+    $server_port = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : '';
 
     $secure = ! is_null($secure)
         ? $secure
-        : ! in_array($server_https_flag, ['off', '']) || $server_port == 443;
+        : ! in_array($server_https_flag, ['off', '']) || $server_port === 443;
 
     // For PHP 7.3+ and above
     if ( version_compare(phpversion(), '7.3.0', '>=') ) {
@@ -154,7 +152,7 @@ function antiDdosSkipVisitorsFromTrustedAs($data)
  */
 function antiDdosSkipVisitorsFromTrustedUa($data)
 {
-    if (!$data['test_not_rated_ua']) {
+    if (!$data['skip_not_rated_ua']) {
         return false;
     }
 

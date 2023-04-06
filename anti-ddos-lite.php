@@ -24,7 +24,7 @@ if (!isset($_SERVER['REMOTE_ADDR'])) {
 $data = [
     'anti_ddos_protection_enable' => true, // Switch to control AntiDDoS state.
     'anti_ddos_debug' => true,             // Activate debug statements.
-    'test_not_rated_ua' => false,          // Test visitors against trusted UserAgent's list.
+    'skip_not_rated_ua' => false,          // Test visitors against trusted UserAgent's list.
     'secure_cookie_days' => 180,           // Days to use secure cookie.
     'redirect_delay' => 3,                 // Delay in seconds before redirection to original URL.
     'remote_ip' => $_SERVER['REMOTE_ADDR'],
