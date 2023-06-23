@@ -30,6 +30,7 @@ $data = [
     'remote_ip' => $_SERVER['REMOTE_ADDR'],
     'secure_label' => 'ct_anti_ddos_key',
     'test_headless' => true,               //block visitors with headless mode (such a selenium)
+    'server_url' => isset($_SERVER['HTTPS']) ? 'https://' . $_SERVER['HTTP_HOST'] : 'http://' . $_SERVER['HTTP_HOST'],
 
     // Secret key salt to avoid copy/past of the Cookie between visitors.
     // ATTENTION!!!

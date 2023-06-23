@@ -18,9 +18,8 @@
     .sign a { color: #ccc; }
 </style>
 <script>
-function get_current_url() {
-    document.write(window.location.href);
-    return null;
+function hrefOnclickEvent() {
+    document.location = '{SERVER_URL}';
 }
 </script>
 </head>
@@ -31,7 +30,7 @@ function get_current_url() {
                 <h1>DDoS protection is activated for your IP <a href="http://cleantalk.org/blacklists/{VISITOR_IP}" target="_new">{VISITOR_IP}</a></h1>
                 <div id="human_info" style="display: none">
                     <p>Please click bellow to pass protection,</p>
-                    <a href=""><script>get_current_url();</script></a>
+                    <button onclick="hrefOnclickEvent()">Click</button>
                     <p>Or you will be automatically redirected to the requested page after {REDIRECT_DELAY} seconds.</p>
                 </div>
                 <div id="js_info">

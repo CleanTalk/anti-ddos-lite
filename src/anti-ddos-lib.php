@@ -195,6 +195,7 @@ function antiDdosShowDdosScreenAndRedirect($data)
     $code = str_replace('{DAYS}', $data['secure_cookie_days'], $code);
     $code = str_replace('{SECURE_LABEL}', $data['secure_label'], $code);
     $code = str_replace('{SECURE_KEY}', $data['secure_key'], $code);
+    $code = str_replace('{SERVER_URL}', $data['server_url'], $code);
 
     echo ($code);
 
