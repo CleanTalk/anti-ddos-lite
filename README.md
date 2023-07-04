@@ -66,6 +66,12 @@ Skip trusted User-Agents. Regular expressions are allowed, example is bellow.
 ```
 
 ## Changelog
+Version 2.0.2
+* Fix. A document.write vulnerability fixed.
+* Fix. UA list converted to regular expressions.
+* Fix. UptimeRobot UA.
+* Fix. Trusted UA is skipped correctly.
+
 Version 2.0.1
  * New. Headless mode detection.
  * Fix. Now visitors without JS will be blocked correctly.
