@@ -1,0 +1,27 @@
+name: Notice about review approved via Telegram
+
+on:
+  pull_request_review:
+    types: [ submitted ]
+
+jobs:
+
+  build:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Convert date format
+        id: date
+        run: echo "::set-output name=date::$(date -d "${{ github.event.pull_request.created_at }}" +"%Y-%m-%d")"
+      - name: Send telegram message on review approved
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_PLUGINS_TO }}
+          token: ${{ secrets.TELEGRAM_REVIEWER_TOKEN }}
+          message: |
+            💥🎉🎉🎉💥 Pull-request <a href="${{ github.event.pull_request.html_url }}"><strong>${{ github.event.pull_request.title }}</strong></a> 
+            submitted by <strong>${{ github.event.pull_request.user.login }}</strong> at <strong>${{ steps.date.outputs.date }}</strong>
+
+            was <strong>approved</strong> and is ready to merge <a href="${{ github.event.pull_request.html_url }}">➡️</a> !!!
+          format: html
+          disable_web_page_preview: true
