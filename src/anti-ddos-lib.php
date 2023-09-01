@@ -123,13 +123,16 @@ function antiDdosSkipUserReentry($data)
  */
 function antiDdosSkipVisitorsFromTrustedAs($data)
 {
-    if (!function_exists('geoip_org_by_name')) {
+    require_once "not_rated_as.php";
+    global $notRatedAs;
+
+    if (empty($data['skip_not_rated_as']) || empty($notRatedAs)) {
         return false;
     }
 
-    // List of trusted Autonomous systems.
-    $notRatedAs = [13238,15169,8075,10310,36647,13335,2635,32934,38365,55967,
-        16509,2559,19500,47764,17012,1449,43247,32734,15768,33512,18730,30148];
+    if (!function_exists('geoip_org_by_name')) {
+        return false;
+    }
 
     $visitorOrg = geoip_org_by_name($data['remote_ip']);
     if ($visitorOrg !== false && preg_match("/^AS(\d+)\s/", $visitorOrg, $matches)) {
@@ -152,7 +155,10 @@ function antiDdosSkipVisitorsFromTrustedAs($data)
  */
 function antiDdosSkipVisitorsFromTrustedUa($data)
 {
-    if (!$data['skip_not_rated_ua']) {
+    require_once "not_rated_ua.php";
+    global $notRatedUa;
+
+    if (empty($data['skip_not_rated_ua']) || empty($notRatedUa)) {
         return false;
     }
 
@@ -160,8 +166,6 @@ function antiDdosSkipVisitorsFromTrustedUa($data)
         return false;
     }
 
-    require "not_rated_ua.php";
-    global $notRatedUa;
     if (count($notRatedUa) > 0) {
         foreach ($notRatedUa as $ua) {
             if (preg_match("/^$ua$/", $_SERVER['HTTP_USER_AGENT'])) {
