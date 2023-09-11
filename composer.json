@@ -18,6 +18,11 @@
     "squizlabs/php_codesniffer": "3.*",
     "phpcompatibility/php-compatibility": "^9.3"
   },
+  "require": {
+    "ext-json": "*",
+    "ext-curl": "*",
+    "ext-geoip": "*"
+  },
   "scripts": {
     "test": [
       "vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility",

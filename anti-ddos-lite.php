@@ -30,8 +30,14 @@ $data = [
     'anti_ddos_debug' => true,
     // Do not check visitors from trusted UserAgent list. Set the list in the file not_rated_ua.php
     'skip_not_rated_ua' => false,
-    // Do not check visitors from trusted AS list. Set the list in the file not_rated_as.php
-    'skip_not_rated_as' => false,
+    // Do not check visitors from trusted AS list. Set the list in the file not_rated_as.php.
+    'skip_not_rated_as' => true,
+    // Select the way how app will get ASN to check. 'ipinfo' for ipinfo.io API services, 'geoip' to use local stored
+    // GeoIp database.
+    'way_to_get_asn' => 'ipinfo', // Set 'ipinfo' || 'geoip'
+    // Set your own ipinfo.io token to get the appropriate access level.
+    // If no token provided, ipinfo.io will restrict GET attempts.
+    'ip_info_token' => '',
     // Days to use secure cookie.
     'secure_cookie_days' => 180,
     // Delay in seconds before redirection to original URL.
@@ -48,10 +54,10 @@ $data = [
     // ATTENTION!!!
     // YOU MUST GENERATE NEW $anti_ddos_salt BEFORE USE IT ON YOUR OWN SITE.
     // ATTENTION!!!
-    'anti_ddos_salt' => '4xU9mn2X7iPZpeW2'
+    'anti_ddos_salt' => '4xU9mn2X7iPZpeW2',
 ];
 
-if (empty($data('remote_ip'))) {
+if (empty($data['remote_ip'])) {
     return;
 }
 
