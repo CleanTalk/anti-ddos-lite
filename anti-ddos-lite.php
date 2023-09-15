@@ -31,7 +31,7 @@ $data = [
     // Do not check visitors from trusted UserAgent list. Set the list in the file not_rated_ua.php
     'skip_not_rated_ua' => false,
     // Do not check visitors from trusted AS list. Set the list in the file not_rated_as.php.
-    'skip_not_rated_as' => true,
+    'skip_not_rated_as' => false,
     // Select the way how app will get ASN to check. 'ipinfo' for ipinfo.io API services, 'geoip' to use local stored
     // GeoIp database.
     'way_to_get_asn' => 'ipinfo', // Set 'ipinfo' || 'geoip'
