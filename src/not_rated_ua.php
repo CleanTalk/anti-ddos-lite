@@ -1,5 +1,6 @@
 <?php
 
+// List of trusted User Agents
 global $notRatedUa;
 $notRatedUa = array(
     'CleanTalk Uptime bot.+',
