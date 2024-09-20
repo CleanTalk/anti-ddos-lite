@@ -19,7 +19,7 @@
 </style>
 <script>
 function hrefOnclickEvent() {
-    window.location.reload(1);
+    window.location.reload();
 }
 </script>
 </head>
@@ -67,11 +67,11 @@ function hrefOnclickEvent() {
         date.setTime(date.getTime() + (days * 24*60*60*1000));
 
         const ctSecure = location.protocol === "https:" ? "; secure" : "";
-        document.cookie = "{SECURE_LABEL}" + "=" + escape("{SECURE_KEY}") + "; expires = " + date.toGMTString() + "; path=/; samesite=lax" + ctSecure;
+        document.cookie = "{SECURE_LABEL}_js" + "=" + escape("{SECURE_KEY}") + "; expires = " + date.toGMTString() + "; path=/; samesite=lax" + ctSecure;
         document.cookie = 'ct_headless' + "=" + encodeURIComponent(btoa('{SECURE_KEY}' +':'+ navigator.webdriver)) + "; " + 0 + "path=/; samesite=lax";
 
         setTimeout(function(){
-           window.location.reload(1);
+           window.location.reload();
         }, {REDIRECT_DELAY} * 1000);
     </script>
 </body>

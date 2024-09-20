@@ -62,38 +62,47 @@ function antiDdosProtectionSetCookie(
     $httponly = false,
     $samesite = 'Lax'
 ) {
-    if ( headers_sent() ) {
+    if (headers_sent()) {
         return;
     }
-
+    //get secure
     $server_https_flag = isset($_SERVER['HTTPS']) ? $_SERVER['HTTPS'] : '';
     $server_port = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : '';
-
-    $secure = !is_null($secure)
+    $secure = ! is_null($secure)
         ? $secure
-        : !in_array($server_https_flag, ['off', '']) || $server_port === 443;
-
+        : ! in_array($server_https_flag, ['off', '']) || $server_port === 443;
+    //get domain
+    $server_http_host = isset($_SERVER['HTTP_HOST']) ? '.' . $_SERVER['HTTP_HOST'] : '';
+    $domain = !empty($domain)
+        ? '.' . $domain
+        : $server_http_host;
+    $params = array(
+        'expires' => $expires,
+        'path' => !empty($path) ? $path : '/',
+        'domain' => $domain,
+        'secure' => $secure,
+        'httponly' => $httponly,
+    );
     // For PHP 7.3+ and above
     if ( version_compare(phpversion(), '7.3.0', '>=') ) {
-        $params = array(
-            'expires' => $expires,
-            'path' => $path,
-            'domain' => $domain,
-            'secure' => $secure,
-            'httponly' => $httponly,
-        );
-
-        if ( $samesite ) {
+        if ($samesite) {
             $params['samesite'] = $samesite;
         }
-
         /**
          * @psalm-suppress InvalidArgument
          */
         setcookie($name, $value, $params);
         // For PHP 5.6 - 7.2
     } else {
-        setcookie($name, $value, $expires, $path, $domain, $secure, $httponly);
+        setcookie(
+            $name,
+            $value,
+            $params['expires'],
+            $params['path'],
+            $params['domain'],
+            $params['secure'],
+            $params['httponly']
+        );
     }
 }
 
@@ -111,11 +120,14 @@ function antiDdosCheckDatFileExist()
 }
 
 /**
- * @return bool
+ * @return boolЛ
  */
 function antiDdosSkipUserReentry($data)
 {
-    return isset($_COOKIE[$data['secure_label']]) && $_COOKIE[$data['secure_label']] == $data['secure_key'];
+    $pass_by_js = isset($_COOKIE[$data['secure_label']]) && $_COOKIE[$data['secure_label']] == $data['secure_key'];
+    $pass_by_backend = isset($_COOKIE[$data['secure_label'] . '_js']) && $_COOKIE[$data['secure_label'] . '_js'] == $data['secure_key'];
+    //_js
+    return $pass_by_js || $pass_by_backend;
 }
 
 /**
