@@ -42,7 +42,14 @@ composer require cleantalk/anti-ddos-lite
 \Cleantalk\CleantalkAntiDdosLite\CleantalkAntiDdosLite::init();
 ```
 
-2. Generate new value for anti_ddos_salt. 
+2. Generate new value for anti_ddos_salt.
+
+3. (Optional) Set your support email address.
+To add your support contact, open the file `src/anti-ddos.html` and replace the content of the `<a href=""></a>` tag with your email address, for example:
+```html
+<a href="mailto:youremail@domain.com">Contact support</a>
+```
+This link will appear on the DDoS protection page for your users.
 
 ## Skip protection for visitors from trusted networks, Autonomous systesm (AS)
 Setup [GeoIP](https://www.php.net/manual/en/book.geoip.php) and list excluded Autonomous systems in the $not_rated_as.
